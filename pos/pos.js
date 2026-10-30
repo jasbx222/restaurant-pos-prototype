@@ -15,7 +15,8 @@ const O=()=>S.orders[S.cur];
 const lt=l=>Math.round((l.p+l.mods.reduce((a,m)=>a+m[1],0))*l.q*(1-(l.ld||0)/100));
 function totals(o){const sub=o.lines.filter(l=>!l.void).reduce((a,l)=>a+lt(l),0);const disc=o.disc?(o.disc.pct?Math.round(sub*o.disc.v/100):o.disc.v):0;const svc=o.type==='dine'?Math.round((sub-disc)*SERVICE/250)*250:0;const del=o.type==='delivery'?(o.zone?o.zone[1]:0):0;const paid=(o.paid||[]).reduce((a,p)=>a+p.v,0);return{sub,disc,svc,del,tot:sub-disc+svc+del,paid}}
 function log(a,b){S.audit.push({a,b,who:S.user?.n,at:new Date().toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'})})}
-function fit(){const k=Math.min(innerWidth/1280,innerHeight/800,1);pos.style.transform=`scale(${k})`}addEventListener('resize',fit);
+let CART=false;document.addEventListener('click',e=>{const c=e.target.closest('[data-cart]');if(!c)return;e.stopPropagation();CART=!CART;const t=document.querySelector('.tk');if(t)t.classList.toggle('open',CART)},true);
+function fit(){pos.style.transform=''}addEventListener('resize',fit);
 function newOrder(type,extra={}){const id=++S.seq;S.orders[id]={id,type,table:null,guests:0,lines:[],disc:0,opened:Date.now(),by:S.user.n,paid:[],num:type!=='dine'?++S.take:null,...extra};S.cur=id;S.sel=null;return id}
 function title(o){if(!o)return'طلب جديد';if(o.type==='dine')return o.table?'طاولة '+ar(o.table):'صالة';if(o.type==='takeaway')return'سفري '+ar(o.num);return'توصيل '+ar(o.num)}
 // ---------- render
@@ -29,7 +30,7 @@ function render(){if(!S.user)return lock();if(!S.shift)return openShift();
  <button class="tbtn ${pend+alerts?'alert':''}" data-inbox>${ic('bell',18)}المنيو الإلكتروني${pend+alerts?`<span class="badge num">${ar(pend+alerts)}</span>`:''}</button>
  <button class="ico ${b.online?'':'off'}" data-net title="الاتصال">${ic(b.online?'wifi':'nowifi',20)}${b.online?'':'<span>دون اتصال</span>'}</button>
  <div class=who><span class=av>${ic("user",18)}</span><div><b>${S.user.n}</b><small>${S.user.r}</small></div></div><button class=ico data-menu>${ic('menu',22)}</button></header>
- <div class=body><aside class=tk>${ticket(o,T)}</aside><section class=main>${S.view==='tables'&&S.type==='dine'?floor():menu(o)}</section></div><div class=mw id=mw><div class=md id=md></div></div>`;}
+ <div class=body><aside class="tk${CART?' open':''}">${ticket(o,T)}</aside><section class=main>${S.view==='tables'&&S.type==='dine'?floor():menu(o)}</section><button class=cartfab data-cart>السلة <b class=num>${o&&o.lines?o.lines.filter(l=>!l.void).length:0}</b></button><div class=cartdim data-cart></div></div><div class=mw id=mw><div class=md id=md></div></div>`;}
 function ticket(o,T){if(!o)return`<div class=hd><div><h2>${S.type==='dine'?'اختر طاولة':'طلب جديد'}</h2><div class=s>${S.type==='dine'?'من مخطط الصالة':'اختر أول صنف لبدء الطلب'}</div></div></div><div class="lines empty">${ic('bill',40,1.4)}<span>${S.type==='dine'?'اضغط على طاولة لفتح طلبها،<br>أو اختر صنفاً لطلب صالة بلا طاولة':'الطلب فارغ'}</span></div>${padBlock(null)}`;
  const unsent=o.lines.some(l=>!l.sent&&!l.void);
  const sub=o.type==='dine'?`طلب ${ar(o.id)} · ${ar(o.guests||0)} ضيوف · ${o.by}`:o.type==='delivery'?(o.cust?`${o.cust.n} · ${o.zone?.[0]||''}${o.driver?' · السائق '+o.driver:''}`:'أضف الزبون'):`طلب ${ar(o.id)} · رقم الاستلام ${ar(o.num)}`;
@@ -125,7 +126,7 @@ function custRes(){const e=$('#cres');if(!e)return;const ph=NP;const c=CUST[ph];
 // ---------- events
 pos.addEventListener('click',e=>{const T=e.target.closest('button,[data-cust]');if(!T||T.disabled)return;const d=T.dataset;
  if(d.k!==undefined){if(d.k==='del')NP=NP.slice(0,-1);else NP=(NP+d.k).slice(0,S.padMode==='phone'?11:S.padMode==='login'||S.padMode==='mpin'?4:9);
-  if(S.padMode==='login'){npShow();if(NP.length===4){const u=STAFF.find(s=>s.pin===NP);if(u){S.user=u;log('دخول',u.n);if(!S.shift&&u.r==='كابتن'){S.shift=S.shift}render()}else{toast('الرمز غير صحيح');NP='';npShow()}}return}
+  if(S.padMode==='login'){npShow();if(NP.length===4){const u=STAFF.find(s=>s.pin===NP);if(u){S.user=u;log('دخول',u.n);if(!S.shift&&u.r==='نادل'){S.shift=S.shift}render()}else{toast('الرمز غير صحيح');NP='';npShow()}}return}
   if(S.padMode==='phone')return custRes();if(S.padMode==='guests'){$('#np').textContent=ar(NP||0);return}npShow();return}
  if('openshift' in d){S.shift={float:+NP||0,cash:+NP||0,pay:{cash:0,card:0},at:new Date().toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'})};log('فتح وردية',NP);S.view='tables';render();return}
  if('mpinok' in d){if(STAFF.find(s=>s.pin===NP&&s.r==='مديرة')){const cb=S.mpinCb;close();cb()}else{toast('رمز المدير غلط');NP='';npShow()}return}

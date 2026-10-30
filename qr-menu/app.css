@@ -92,3 +92,6 @@ body{background:#E9EBEE}
 .act button{flex:1;height:56px;border-radius:14px;background:var(--soft);font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px}
 .act .pri{background:var(--ink);color:#fff}.act .sent{background:var(--greensoft);color:var(--herb)}
 .toast-msg{top:16px;bottom:auto}
+
+@media (min-width:600px){.frame{max-width:none}.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}.feat{height:260px}.sec,.cats,.top{padding-inline:max(18px,calc((100% - 1100px)/2))}.feat{margin-inline:auto;width:min(1100px,calc(100% - 36px))}
+.sh{max-width:560px;margin:0 auto}.dock,.cta{max-width:560px;margin:0 auto}.item{max-width:640px;margin:0 auto}.hero{height:360px}.trk .act{max-width:560px}.big,.st,.ord{max-width:560px;margin-inline:auto}.st,.big{margin-bottom:14px}}
