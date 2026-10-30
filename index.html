@@ -1,7 +1,12 @@
-<!doctype html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>بيت الفحم: النموذج التفاعلي</title><link rel="stylesheet" href="shared/base.css">
-<style>body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:30px}h1{font-size:64px;line-height:1}h1 span{color:var(--tomato)}p{color:var(--mut);font-size:18px}
-.g{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}a{text-decoration:none;color:inherit;width:320px;height:220px;border-radius:36px;padding:26px;display:flex;flex-direction:column;justify-content:space-between}a b{font-family:Lalezar;font-weight:400;font-size:38px;line-height:1}a small{font-size:16px;opacity:.85}</style></head>
-<body><h1 class=L>بيت <span>الفحم</span></h1><p>نموذج تفاعلي: افتح الاثنين بنفس المتصفح، والطلب من المنيو يوصل للكاشير مباشرة.</p>
-<div class=g><a href="qr-menu/?t=12" style="background:var(--tomato);color:var(--surface)"><b>المنيو الإلكتروني</b><small>طاولة ١٢ بمسح QR، موبايل</small></a>
-<a href="qr-menu/?mode=takeaway" style="background:var(--saffron)"><b>طلب سفري</b><small>رابط الطلب من الواتساب</small></a>
-<a href="pos/" style="background:var(--ink);color:var(--surface)"><b>نقطة البيع</b><small>شاشة الكاشير اللمسية ١٢٨٠×٨٠٠، رمز الكاشير ١٢٣٤ والمدير ٩٩٩٩</small></a></div></body></html>
+<!doctype html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>سُفرة: النموذج التفاعلي</title><link rel="stylesheet" href="shared/base.css">
+<style>body{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
+.w{width:min(980px,100%)}.hd{display:flex;align-items:center;gap:14px;margin-bottom:8px}.hd b{font-size:30px}p.s{color:var(--mut);margin-bottom:28px;line-height:1.8}
+.g{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:16px}
+a{text-decoration:none;color:inherit;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+a .ph{height:170px}a div.x{padding:16px 18px 18px}a b{font-size:19px;display:block;margin-bottom:4px}a small{color:var(--mut);font-size:14px;line-height:1.7}
+a span.go{display:block;margin-top:12px;color:var(--brand);font-weight:700}</style></head>
+<body><div class=w><div class=hd><svg width="44" height="44" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0F5C4D"/><path d="M7 19h18M9 19c0-4 3-7 7-7s7 3 7 7M16 12v-2M6 23h20" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round"/></svg><b>سُفرة</b></div>
+<p class=s>نموذج تفاعلي لنقطة البيع والمنيو الإلكتروني. افتح الاثنين في المتصفح نفسه بتبويبين، وكل طلب من المنيو يصل إلى الكاشير مباشرة.</p>
+<div class=g><a href="pos/"><div class=ph style="background-image:url(assets/img/spread.jpg)"></div><div class=x><b>نقطة البيع</b><small>شاشة الكاشير اللمسية ١٢٨٠×٨٠٠. رمز الكاشير ١٢٣٤، والنادل ٢٢٢٢، والمديرة ٩٩٩٩.</small><span class=go>افتح نقطة البيع</span></div></a>
+<a href="qr-menu/?t=12"><div class=ph style="background-image:url(assets/img/kebab.jpg)"></div><div class=x><b>المنيو الإلكتروني</b><small>طاولة ١٢ عبر رمز QR، على الهاتف.</small><span class=go>افتح المنيو</span></div></a>
+<a href="qr-menu/?mode=takeaway"><div class=ph style="background-image:url(assets/img/shawarma2.jpg)"></div><div class=x><b>طلب سفري</b><small>رابط الطلب المرسل عبر واتساب.</small><span class=go>افتح الطلب السفري</span></div></a></div></div></body></html>
